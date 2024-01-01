@@ -2,5 +2,10 @@
 // import "./pollyfills/array/reduce.js";
 // import "./pollyfills/array/map.js";
 // import "./pollyfills/array/filter.js";
-import "./pollyfills/array/forEach.js";
-import "./pollyfills/array/flat.js";
+// import "./pollyfills/array/forEach.js";
+// import "./pollyfills/array/flat.js";
+
+// Following are the function pollyfills
+// import "./pollyfills/function/call.js";
+// import "./pollyfills/function/apply.js";
+import "./pollyfills/function/bind.js";
