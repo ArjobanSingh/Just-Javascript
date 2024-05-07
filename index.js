@@ -8,4 +8,8 @@
 // Following are the function pollyfills
 // import "./pollyfills/function/call.js";
 // import "./pollyfills/function/apply.js";
-import "./pollyfills/function/bind.js";
+// import "./pollyfills/function/bind.js";
+
+// Following are the implementations of famous functions
+// import "./functionImplementations/currying.js";
+import "./functionImplementations/composeAndPipe.js";
