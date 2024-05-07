@@ -13,12 +13,9 @@ Function.prototype.myCall = function (context, ...args) {
   else if (typeof context === "string") finalContext = new String(context);
   else if (context === undefined || context === null) finalContext = globalThis;
 
-  // Need to find a key for a function name, that can be assigned
-  // to the context, so that we can invoke this function from context
-  let uniqKey = "__CUSTOM_CALL__";
-  while (finalContext[uniqKey] !== undefined) {
-    uniqKey = Math.random();
-  }
+  // Create unique key using Symbol() that can be assigned to the
+  // context, so that we can invoke this function from context
+  const uniqKey = Symbol();
 
   finalContext[uniqKey] = this;
   const result = finalContext[uniqKey](...args);

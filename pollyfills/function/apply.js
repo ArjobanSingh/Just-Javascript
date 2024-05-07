@@ -9,24 +9,19 @@
 // which happens in strict mode apply.
 
 Function.prototype.myApply = function (context, argsArr) {
-  if (!Array.isArray(argsArr)) {
-    throw new TypeError(`${argsArr} is not an array`);
-  }
+  const args = Array.isArray(argsArr) ? argsArr : [];
 
   let finalContext = context;
   if (typeof context === "number") finalContext = Number;
   else if (typeof context === "string") finalContext = String;
   else if (context === undefined || context === null) finalContext = globalThis;
 
-  // Need to find a key for a function name, that can be assigned
-  // to the context, so that we can invoke this function from context
-  let uniqKey = "__CUSTOM_CALL__";
-  while (finalContext[uniqKey] !== undefined) {
-    uniqKey = Math.random();
-  }
+  // Create unique key using Symbol() that can be assigned to the
+  // context, so that we can invoke this function from context
+  const uniqKey = Symbol();
 
   finalContext[uniqKey] = this;
-  const result = finalContext[uniqKey](argsArr);
+  const result = finalContext[uniqKey](...args);
   delete finalContext[uniqKey];
   return result;
 };
@@ -40,10 +35,13 @@ function printInfo(favLanguage) {
   console.log(`${this.firstName} ${this.lastName}`);
   console.log(`Favorite programming language:  ${favLanguage}`);
 }
-printInfo.myApply(obj, "JavaScript");
+printInfo.myApply(obj, ["JavaScript"]);
 
 function printLocation() {
-  console.log("The window location in strict mode module is: ", this.location);
+  console.log(
+    "This should print globalThis.location(non-strict mode): ",
+    this.location
+  );
 }
 printLocation.myApply(undefined);
 
